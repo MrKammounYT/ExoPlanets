@@ -1,0 +1,91 @@
+{
+  "model_name": "Gradient Boosting Classifier",
+  "params": {
+    "n_estimators": 487,
+    "learning_rate": 0.0666,
+    "max_depth": 5,
+    "subsample": 0.7247,
+    "random_state": 42
+  },
+  "metrics": {
+    "test_accuracy": 0.9351,
+    "test_f1": 0.8957,
+    "test_auc_roc": 0.9761,
+    "train_samples": 7316,
+    "confirmed_count": 2293,
+    "false_positive_count": 5023
+  },
+  "features": {
+    "raw_numeric": [
+      "koi_period",
+      "koi_time0bk",
+      "koi_impact",
+      "koi_duration",
+      "koi_depth",
+      "koi_prad",
+      "koi_teq",
+      "koi_insol",
+      "koi_model_snr",
+      "koi_steff",
+      "koi_slogg",
+      "koi_srad",
+      "koi_kepmag"
+    ],
+    "log_transformed": [
+      "koi_period",
+      "koi_duration",
+      "koi_depth",
+      "koi_prad",
+      "koi_model_snr",
+      "koi_insol"
+    ],
+    "derived_categories": [
+      "type_orbite",
+      "type_planete",
+      "type_etoile",
+      "luminosite"
+    ]
+  },
+  "top_importances": [
+    {
+      "feature": "lognum__koi_model_snr",
+      "importance": 0.26387
+    },
+    {
+      "feature": "cat__type_planete_jupiter_like",
+      "importance": 0.19388
+    },
+    {
+      "feature": "lognum__koi_period",
+      "importance": 0.11678
+    },
+    {
+      "feature": "lognum__koi_duration",
+      "importance": 0.09179
+    },
+    {
+      "feature": "num__koi_impact",
+      "importance": 0.05914
+    },
+    {
+      "feature": "lognum__koi_prad",
+      "importance": 0.04913
+    },
+    {
+      "feature": "num__koi_teq",
+      "importance": 0.04871
+    },
+    {
+      "feature": "lognum__koi_insol",
+      "importance": 0.03069
+    },
+    {
+      "feature": "lognum__koi_depth",
+      "importance": 0.0264
+    },
+    {
+      "feature": "num__koi_steff",
+      "importance": 0.0262
+    }
+  ]
+}

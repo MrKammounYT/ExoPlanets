@@ -1,0 +1,564 @@
+{
+  "_note": "Demo catalog. Exoplanet figures checked against the NASA Exoplanet Archive (pscomppars) and solar-system figures against the NASA Planetary Fact Sheet on 2026-11-24. Distances converted from parsecs at 3.2616 ly/pc and rounded. Sirius is not yet verified (see its source_note).",
+  "objects": [
+    {
+      "id": "kepler-186-f",
+      "name": "Kepler-186 f",
+      "aliases": [],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "Kepler-186",
+      "discovered": "2014",
+      "distance": "579 ly",
+      "size": "1.17 x Earth radius",
+      "orbit_period": "130 days",
+      "method": "transit",
+      "method_label": "Transit",
+      "line": "Kepler-186 f orbits Kepler-186 and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits Kepler-186"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "Earth-sized, far below the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by transit"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Announced in 2014"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "proxima-b",
+      "name": "Proxima Centauri b",
+      "aliases": [
+        "Proxima b",
+        "Proxima Cen b"
+      ],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "Proxima Centauri",
+      "discovered": "2016",
+      "distance": "4.2 ly",
+      "size": ">= 1.06 x Earth mass",
+      "orbit_period": "11.2 days",
+      "method": "rv",
+      "method_label": "Radial velocity",
+      "line": "Proxima Centauri b orbits Proxima Centauri and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits Proxima Centauri"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "About the mass of Earth"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by radial velocity"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Announced in 2016"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "trappist-1-e",
+      "name": "TRAPPIST-1 e",
+      "aliases": [],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "TRAPPIST-1",
+      "discovered": "2017",
+      "distance": "41 ly",
+      "size": "0.92 x Earth radius",
+      "orbit_period": "6.1 days",
+      "method": "transit",
+      "method_label": "Transit",
+      "line": "TRAPPIST-1 e orbits TRAPPIST-1 and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits TRAPPIST-1"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "Earth-sized, far below the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by transit"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Announced in 2017"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "51-peg-b",
+      "name": "51 Pegasi b",
+      "aliases": [
+        "51 Peg b",
+        "Dimidium"
+      ],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "51 Pegasi",
+      "discovered": "1995",
+      "distance": "50 ly",
+      "size": "0.61 x Jupiter mass",
+      "orbit_period": "4.2 days",
+      "method": "rv",
+      "method_label": "Radial velocity",
+      "line": "51 Pegasi b orbits 51 Pegasi and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits 51 Pegasi"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "About 0.6 Jupiter masses"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by radial velocity"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Announced in 1995"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "hd-209458-b",
+      "name": "HD 209458 b",
+      "aliases": [
+        "Osiris"
+      ],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "HD 209458",
+      "discovered": "1999",
+      "distance": "158 ly",
+      "size": "1.4 x Jupiter radius",
+      "orbit_period": "3.5 days",
+      "method": "rv",
+      "method_label": "Radial velocity",
+      "line": "HD 209458 b orbits HD 209458 and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits HD 209458"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "About 0.7 Jupiter masses"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by radial velocity"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Announced in 1999"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "kepler-452-b",
+      "name": "Kepler-452 b",
+      "aliases": [],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "Kepler-452",
+      "discovered": "2015",
+      "distance": "1,800 ly",
+      "size": "1.6 x Earth radius",
+      "orbit_period": "385 days",
+      "method": "transit",
+      "method_label": "Transit",
+      "line": "Kepler-452 b orbits Kepler-452 and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits Kepler-452"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "Small enough to sit well under the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by transit"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Announced in 2015"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "toi-700-d",
+      "name": "TOI-700 d",
+      "aliases": [],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "TOI-700",
+      "discovered": "2020",
+      "distance": "102 ly",
+      "size": "1.14 x Earth radius",
+      "orbit_period": "37.4 days",
+      "method": "transit",
+      "method_label": "Transit",
+      "line": "TOI-700 d orbits TOI-700 and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits TOI-700"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "Earth-sized, far below the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by transit"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Announced in 2020"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "ogle-390",
+      "name": "OGLE-2005-BLG-390L b",
+      "aliases": [
+        "OGLE 390"
+      ],
+      "kind": "exo",
+      "verdict": "Confirmed exoplanet",
+      "host": "OGLE-2005-BLG-390L",
+      "discovered": "2005",
+      "distance": "21,500 ly",
+      "size": "~5.5 x Earth mass",
+      "orbit_period": "~9 years",
+      "method": "lensing",
+      "method_label": "Microlensing",
+      "line": "OGLE-2005-BLG-390L b orbits OGLE-2005-BLG-390L and is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "pass",
+          "detail": "Orbits OGLE-2005-BLG-390L"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "About 5.5 Earth masses"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "pass",
+          "detail": "Found by microlensing"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "pass",
+          "detail": "Discovery year 2005 in the archive"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "mars",
+      "name": "Mars",
+      "aliases": [],
+      "kind": "solar",
+      "verdict": "Not an exoplanet",
+      "host": "The Sun",
+      "discovered": "Antiquity",
+      "distance": "Solar system",
+      "size": "0.53 x Earth radius",
+      "orbit_period": "687 days",
+      "method": "none",
+      "method_label": "None",
+      "line": "Mars is a planet of our own solar system, so it is not an exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "fail",
+          "detail": "Orbits the Sun"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "About a tenth of Earth's mass"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "fail",
+          "detail": "Not an exoplanet detection"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "fail",
+          "detail": "Not in the exoplanet archive"
+        }
+      ],
+      "source": "NASA Planetary Fact Sheet (https://nssdc.gsfc.nasa.gov/planetary/factsheet/)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "aliases": [],
+      "kind": "solar",
+      "verdict": "Not an exoplanet",
+      "host": "The Sun",
+      "discovered": "Antiquity",
+      "distance": "Solar system",
+      "size": "11.2 x Earth radius",
+      "orbit_period": "11.9 years",
+      "method": "none",
+      "method_label": "None",
+      "line": "Jupiter orbits the Sun. Exoplanets are worlds around other stars.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "fail",
+          "detail": "Orbits the Sun"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "About 1 Jupiter mass, under the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "fail",
+          "detail": "Not an exoplanet detection"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "fail",
+          "detail": "Not in the exoplanet archive"
+        }
+      ],
+      "source": "NASA Planetary Fact Sheet (https://nssdc.gsfc.nasa.gov/planetary/factsheet/)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "earth",
+      "name": "Earth",
+      "aliases": [],
+      "kind": "solar",
+      "verdict": "Not an exoplanet",
+      "host": "The Sun",
+      "discovered": "-",
+      "distance": "Solar system",
+      "size": "1 x Earth radius",
+      "orbit_period": "365 days",
+      "method": "none",
+      "method_label": "None",
+      "line": "Earth orbits the Sun, so it is not an exoplanet. Exoplanets orbit other stars.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "fail",
+          "detail": "Orbits the Sun"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "One Earth mass"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "fail",
+          "detail": "Not an exoplanet detection"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "fail",
+          "detail": "Not in the exoplanet archive"
+        }
+      ],
+      "source": "NASA Planetary Fact Sheet (https://nssdc.gsfc.nasa.gov/planetary/factsheet/)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "pluto",
+      "name": "Pluto",
+      "aliases": [],
+      "kind": "solar",
+      "verdict": "Not an exoplanet",
+      "host": "The Sun",
+      "discovered": "1930",
+      "distance": "Solar system",
+      "size": "0.19 x Earth radius",
+      "orbit_period": "248 years",
+      "method": "none",
+      "method_label": "None",
+      "line": "Pluto is a dwarf planet orbiting the Sun, so it is not an exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "fail",
+          "detail": "Orbits the Sun"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "pass",
+          "detail": "Far below the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "fail",
+          "detail": "Not an exoplanet detection"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "fail",
+          "detail": "Not in the exoplanet archive"
+        }
+      ],
+      "source": "NASA Planetary Fact Sheet (https://nssdc.gsfc.nasa.gov/planetary/factsheet/)",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "sirius",
+      "name": "Sirius",
+      "aliases": [
+        "Sirius A"
+      ],
+      "kind": "star",
+      "verdict": "Not an exoplanet",
+      "host": "-",
+      "discovered": "Antiquity",
+      "distance": "8.6 ly",
+      "size": "1.7 x Sun radius",
+      "orbit_period": "-",
+      "method": "none",
+      "method_label": "None",
+      "line": "Sirius is a star, so it is not an exoplanet. Stars host exoplanets; they are not one.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "fail",
+          "detail": "It is the star itself"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "fail",
+          "detail": "Far above the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "fail",
+          "detail": "No exoplanet signal"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "fail",
+          "detail": "Not listed as a planet"
+        }
+      ],
+      "source": null,
+      "source_note": "Not verified: Sirius is not in the exoplanet archive and SIMBAD was unavailable on 2026-11-24. Distance and radius still need a source.",
+      "retrieved": null
+    },
+    {
+      "id": "proxima-star",
+      "name": "Proxima Centauri",
+      "aliases": [],
+      "kind": "star",
+      "verdict": "Not an exoplanet",
+      "host": "-",
+      "discovered": "1915",
+      "distance": "4.2 ly",
+      "size": "0.14 x Sun radius",
+      "orbit_period": "-",
+      "method": "none",
+      "method_label": "None",
+      "line": "Proxima Centauri is a star. Its planet, Proxima Centauri b, is a confirmed exoplanet.",
+      "checks": [
+        {
+          "test": "Orbits a star other than the Sun",
+          "result": "fail",
+          "detail": "It is the star itself"
+        },
+        {
+          "test": "Under the 13 Jupiter-mass limit",
+          "result": "fail",
+          "detail": "Far above the limit"
+        },
+        {
+          "test": "Signal from a detection method",
+          "result": "fail",
+          "detail": "No exoplanet signal"
+        },
+        {
+          "test": "Confirmed in the archive",
+          "result": "fail",
+          "detail": "Not listed as a planet"
+        }
+      ],
+      "source": "NASA Exoplanet Archive, pscomppars table (https://exoplanetarchive.ipac.caltech.edu) (host star values: st_rad, sy_dist)",
+      "retrieved": "2026-11-24"
+    }
+  ]
+}

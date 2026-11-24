@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TASA landing page</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@300;400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#05070b;color:#eef1f5;font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+.frame{background-color:#080b11;background-image:radial-gradient(ellipse 55% 38% at 76% 10%,rgba(70,120,150,.22),transparent 70%),radial-gradient(ellipse 45% 30% at 8% 52%,rgba(80,120,100,.10),transparent 70%),url(/_blob/f46f81f93b59bfa9fb1f9de46b3da03b);background-repeat:no-repeat,no-repeat,repeat}
+.disp{font-family:'Lexend Zetta','Manrope',system-ui,sans-serif;font-weight:300;text-transform:uppercase}
+.label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#99a3b1;font-weight:600}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.card{border-radius:28px;padding:22px;min-height:310px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.navlink{padding:12px 20px;border-radius:999px;font-size:14px;font-weight:500;color:#aab3bf;text-decoration:none}
+.navlink:hover{color:#fff;background:rgba(255,255,255,.07)}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:16px;border:0;background:#f1f4f7;color:#0a0e13;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.btn-primary:hover{background:#ffffff}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#eef1f5;font-size:13px;font-weight:600;text-decoration:none}
+.btn-ghost:hover{border-color:rgba(185,219,169,.6)}
+.chip{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#c4ccd6;font-size:13px;font-weight:500;cursor:pointer}
+.chip:hover{border-color:rgba(185,219,169,.65);color:#fff}
+.field{display:flex;align-items:center;gap:12px;flex:1 1 260px;min-width:0;min-height:48px;padding:0 16px;border-radius:16px}
+.field:focus-within{outline:2px solid #b9dba9;outline-offset:3px}
+.field input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:#eef1f5;font:500 16px 'Manrope',system-ui,sans-serif}
+.field input::placeholder{color:#7f8a98}
+.cat{display:flex;flex-direction:column;gap:6px;width:100%;min-height:76px;padding:16px 18px;border-radius:20px;text-align:left;color:#eef1f5;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));cursor:pointer;font-family:inherit}
+.cat:hover{background:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.03))}
+a:focus-visible,button:focus-visible{outline:2px solid #b9dba9;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.spin{animation:spin 16s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:1100px){.rail{flex:1 1 100% !important;flex-direction:row !important;justify-content:space-around}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}html{scroll-behavior:auto}}
+</style>
+</helmet>
+
+<div id="top" style="background:#05070b;padding:24px;min-height:100%">
+<div class="frame" style="position:relative;max-width:1392px;margin:0 auto;border-radius:36px;border:1px solid rgba(255,255,255,.12);overflow:hidden;padding:0 clamp(20px,4vw,56px) 56px">
+
+<header style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:28px 0 8px">
+<a href="#top" aria-label="TASA home" style="display:flex;align-items:center;gap:14px;color:#eef1f5;text-decoration:none">
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><circle cx="18" cy="18" r="6" stroke="#eef1f5" stroke-width="1.6"/><ellipse cx="18" cy="18" rx="16" ry="6.5" transform="rotate(-28 18 18)" stroke="#b9dba9" stroke-width="1.6"/><circle cx="30.5" cy="11.5" r="2.2" fill="#b9dba9"/></svg>
+<span class="disp" style="font-size:18px;letter-spacing:.32em">TASA</span>
+</a>
+<nav aria-label="Main" class="glass" style="display:flex;flex-wrap:wrap;gap:4px;padding:6px;border-radius:999px">
+<a href="#checker" class="navlink" style="background:rgba(255,255,255,.10);color:#fff">Checker</a>
+<a href="#method" class="navlink">What counts</a>
+<a href="#catalog" class="navlink">Catalog</a>
+</nav>
+<a href="#checker" class="btn-ghost">Check an object</a>
+</header>
+
+<section id="checker" aria-label="Exoplanet checker" style="display:flex;flex-wrap:wrap;gap:24px;align-items:stretch;padding-top:24px">
+
+<div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:28px;padding-top:20px">
+<div class="glass" style="align-self:flex-start;display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#c4ccd6">
+<span style="width:7px;height:7px;border-radius:50%;background:#b9dba9"></span>Demo catalog · 14 objects
+</div>
+<h1 class="disp" style="margin:0;font-size:clamp(30px,4.4vw,58px);line-height:1.1;letter-spacing:-.01em;text-wrap:balance">
+<span style="display:block">Name it.</span>
+<span style="display:block">Check it.</span>
+<span style="display:block;color:#b9dba9">Know it.</span>
+</h1>
+<p style="margin:0;max-width:460px;font-size:17px;line-height:1.6;color:#aab3bf">Type the name of a planet or a star. TASA tells you whether it is a confirmed exoplanet, and shows the evidence behind the answer.</p>
+
+<form onSubmit="{{onSubmit}}" style="display:flex;flex-direction:column;gap:14px;max-width:580px">
+<label for="q" class="sr">Object name</label>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<div class="field glass">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#99a3b1" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+<input id="q" type="text" value="{{query}}" onChange="{{onQuery}}" placeholder="Try Kepler-186 f" autocomplete="off" spellcheck="false">
+</div>
+<button type="submit" class="btn-primary">Run check
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0e13" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+</button>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+<span class="label" style="margin-right:4px">Try</span>
+<sc-for list="{{chips}}" as="chip" hint-placeholder-count="5">
+<button type="button" class="chip" onClick="{{chip.pick}}">{{chip.name}}</button>
+</sc-for>
+<a href="#catalog" style="margin-left:4px;font-size:13px;font-weight:600;color:#b9dba9;text-decoration:none">Browse all 14</a>
+</div>
+<p style="margin:0;font-size:12.5px;line-height:1.5;color:#8d97a5">Demo data for 14 objects. A live version would search the full NASA Exoplanet Archive.</p>
+</form>
+</div>
+
+<div style="flex:1.2 1 440px;min-width:0;position:relative;min-height:540px;display:flex;align-items:center;justify-content:center">
+<svg viewBox="0 0 600 560" style="position:absolute;inset:0;width:100%;height:100%" fill="none" aria-hidden="true">
+<ellipse cx="300" cy="290" rx="292" ry="172" transform="rotate(-24 300 290)" stroke="rgba(255,255,255,.26)"/>
+<ellipse cx="300" cy="290" rx="236" ry="120" transform="rotate(-24 300 290)" stroke="rgba(255,255,255,.12)"/>
+<circle cx="566" cy="352" r="3" fill="#eef1f5"/>
+<circle cx="64" cy="296" r="2.5" fill="#eef1f5"/>
+<circle cx="478" cy="500" r="2" fill="#b9dba9"/>
+</svg>
+<img src="/_blob/602fc8454093ea3e1a11de8f763c3a5a" alt="Rendered exoplanet with a blue atmospheric glow" style="position:relative;width:min(100%,580px);aspect-ratio:1;object-fit:contain">
+<img src="/_blob/69f95e37562434ca5b5a7ae57a4409a1" alt="" style="position:absolute;left:4%;top:10%;width:76px;height:76px">
+<img src="/_blob/69f95e37562434ca5b5a7ae57a4409a1" alt="" style="position:absolute;left:14%;bottom:8%;width:112px;height:112px">
+
+<div role="status" aria-live="polite" class="glass" style="position:absolute;top:14%;right:0;max-width:260px;padding:14px 18px;border-radius:20px;display:flex;flex-direction:column;gap:6px">
+<span class="label" style="font-size:10px">Target</span>
+<span style="font-size:18px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;overflow-wrap:anywhere">{{view.name}}</span>
+<span class="label" style="font-size:10px">{{view.distanceLabel}}</span>
+<span style="display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{view.tone}}">
+<span style="flex:0 0 8px;height:8px;border-radius:50%;background:{{view.tone}}"></span>{{view.title}}
+</span>
+</div>
+</div>
+
+<aside class="rail glass" aria-label="Key figures" style="flex:0 0 132px;align-self:center;display:flex;flex-direction:column;gap:24px;padding:24px 8px;border-radius:30px;text-align:center">
+<div style="display:flex;flex-direction:column;gap:6px"><span class="disp" style="font-size:16px">6,000+</span><span class="label" style="font-size:10px;line-height:1.4">Confirmed<br>worlds known</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span class="disp" style="font-size:16px">13 MJ</span><span class="label" style="font-size:10px;line-height:1.4">Mass ceiling<br>for a planet</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span class="disp" style="font-size:16px">14</span><span class="label" style="font-size:10px;line-height:1.4">Objects in<br>this demo</span></div>
+</aside>
+</section>
+
+<section aria-label="Result details" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:16px;margin-top:28px">
+
+<article class="glass card">
+<header style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="label">Verdict</span><span class="label" style="color:{{view.tone}}">{{view.tag}}</span></header>
+<svg viewBox="0 0 220 150" role="img" aria-label="{{view.orbitLabel}}" style="width:100%;max-height:150px">
+<g transform="translate(110 75)">
+<circle r="30" fill="rgba(255,226,170,.10)"/>
+<g style="opacity:{{view.orbitOpacity}}" transform="scale(1 0.5) rotate(-14)">
+<circle r="64" fill="none" stroke="rgba(255,255,255,.24)" stroke-dasharray="2 5"/>
+<g class="spin"><circle cx="64" cy="0" r="8" fill="{{view.tone}}"/></g>
+</g>
+<circle r="13" fill="#ffe6b8"/>
+</g>
+</svg>
+<div style="margin-top:auto">
+<div style="font-size:20px;font-weight:700;color:{{view.tone}}">{{view.title}}</div>
+<p style="margin:6px 0 0;font-size:14px;line-height:1.55;color:#aab3bf">{{view.line}}</p>
+</div>
+</article>
+
+<article class="glass card">
+<header style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="label">Facts</span><span class="label">Archive record</span></header>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{view.facts}}" as="f" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.08)">
+<span style="font-size:13px;color:#99a3b1">{{f.k}}</span>
+<span style="font-size:14px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums">{{f.v}}</span>
+</div>
+</sc-for>
+</div>
+</article>
+
+<article class="glass card">
+<header style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="label">Signal</span><span class="label" style="color:{{view.tone}}">{{view.methodLabel}}</span></header>
+<svg viewBox="0 0 260 120" role="img" aria-label="{{view.signalAlt}}" style="width:100%;max-height:150px;margin-top:6px">
+<path d="M0 25H260M0 60H260M0 95H260" stroke="rgba(255,255,255,.08)" stroke-dasharray="3 5" fill="none"/>
+<path d="{{view.signalPath}}" fill="none" stroke="{{view.tone}}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>
+<div style="display:flex;justify-content:space-between"><span class="label" style="font-size:10px">Time</span><span class="label" style="font-size:10px">Brightness or speed</span></div>
+<p style="margin:auto 0 0;font-size:14px;line-height:1.55;color:#aab3bf">{{view.signalCaption}}</p>
+</article>
+
+<article class="glass card">
+<header style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="label">Checks</span><span class="label">{{view.passCount}}</span></header>
+<div style="display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{view.checks}}" as="c" hint-placeholder-count="4">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<span style="flex:0 0 26px;height:26px;border-radius:50%;border:1px solid {{c.color}};display:flex;align-items:center;justify-content:center">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{c.color}}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{c.d}}"/></svg>
+</span>
+<span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+<span style="font-size:14px;font-weight:600"><span class="sr">{{c.word}}: </span>{{c.label}}</span>
+<span style="font-size:12.5px;line-height:1.4;color:#99a3b1">{{c.detail}}</span>
+</span>
+</div>
+</sc-for>
+</div>
+</article>
+</section>
+
+<section id="method" aria-label="What counts as an exoplanet" style="margin-top:112px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-wrap:wrap;gap:24px 56px;align-items:flex-end;justify-content:space-between">
+<h2 class="disp" style="margin:0;flex:1 1 440px;font-size:clamp(24px,3vw,38px);line-height:1.15;text-wrap:balance">What counts as an exoplanet</h2>
+<p style="margin:0;flex:1 1 320px;max-width:440px;font-size:16px;line-height:1.6;color:#aab3bf">Every TASA verdict comes from the same three tests. An object has to pass all of them.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px">
+<article class="glass" style="border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="5" fill="#ffe6b8"/><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-20 20 20)" stroke="#b9dba9" stroke-width="1.5"/><circle cx="34" cy="14" r="2.6" fill="#b9dba9"/></svg>
+<h3 style="margin:0;font-size:19px;font-weight:700">Orbits another star</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:#aab3bf">An exoplanet circles a star that is not the Sun. Mars, Jupiter and Pluto fail this test, however far away they look.</p>
+</article>
+<article class="glass" style="border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M6 32h28" stroke="#99a3b1" stroke-width="1.5" stroke-linecap="round"/><path d="M10 32V22M20 32V14M30 32V6" stroke="#b9dba9" stroke-width="3" stroke-linecap="round"/></svg>
+<h3 style="margin:0;font-size:19px;font-weight:700">Stays under 13 Jupiter masses</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:#aab3bf">Heavier objects can fuse deuterium and count as brown dwarfs. Below that line, an object can be a planet.</p>
+</article>
+<article class="glass" style="border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M4 20h8l3-10 5 22 4-16 3 4h9" stroke="#b9dba9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h3 style="margin:0;font-size:19px;font-weight:700">Has a validated detection</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:#aab3bf">A candidate becomes confirmed once its signal is checked and published. Until then it is a candidate, not a planet.</p>
+</article>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:20px;margin-top:16px">
+<span class="label">How astronomers find them</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:0 28px">
+<div style="padding:18px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:6px"><span style="font-size:15px;font-weight:700">Transit</span><span style="font-size:14px;line-height:1.5;color:#99a3b1">Starlight dips as a planet crosses the star.</span></div>
+<div style="padding:18px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:6px"><span style="font-size:15px;font-weight:700">Radial velocity</span><span style="font-size:14px;line-height:1.5;color:#99a3b1">The star wobbles toward and away from us.</span></div>
+<div style="padding:18px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:6px"><span style="font-size:15px;font-weight:700">Microlensing</span><span style="font-size:14px;line-height:1.5;color:#99a3b1">A planet's gravity bends light from a star behind it.</span></div>
+<div style="padding:18px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:6px"><span style="font-size:15px;font-weight:700">Direct imaging</span><span style="font-size:14px;line-height:1.5;color:#99a3b1">A photograph of the planet itself, mostly young giants.</span></div>
+<div style="padding:18px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:6px"><span style="font-size:15px;font-weight:700">Astrometry</span><span style="font-size:14px;line-height:1.5;color:#99a3b1">A tiny sideways shift in the star's position.</span></div>
+</div>
+</div>
+</section>
+
+<section id="catalog" aria-label="Demo catalog" style="margin-top:112px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-wrap:wrap;gap:24px 56px;align-items:flex-end;justify-content:space-between">
+<h2 class="disp" style="margin:0;flex:1 1 440px;font-size:clamp(24px,3vw,38px);line-height:1.15;text-wrap:balance">Pick any of 14 objects</h2>
+<p style="margin:0;flex:1 1 320px;max-width:440px;font-size:16px;line-height:1.6;color:#aab3bf">Eight confirmed exoplanets, four worlds of our own solar system, and two stars. Select one to run the check.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:12px">
+<sc-for list="{{catalogList}}" as="it" hint-placeholder-count="14">
+<button type="button" class="cat" onClick="{{it.pick}}" style="border:1px solid {{it.border}}">
+<span style="font-size:15px;font-weight:700">{{it.name}}</span>
+<span style="display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;color:#99a3b1">
+<span style="display:flex;align-items:center;gap:8px"><span style="flex:0 0 7px;height:7px;border-radius:50%;background:{{it.dot}}"></span>{{it.status}}</span>
+<span style="font-variant-numeric:tabular-nums">{{it.distance}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<section aria-label="Start a check" class="glass" style="margin-top:112px;border-radius:36px;padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between;overflow:hidden;position:relative">
+<div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px">
+<h2 class="disp" style="margin:0;font-size:clamp(24px,3.4vw,44px);line-height:1.12;text-wrap:balance">Name a world. <span style="color:#b9dba9">Get a verdict.</span></h2>
+<p style="margin:0;max-width:440px;font-size:16px;line-height:1.6;color:#aab3bf">Start with a planet you have heard about, or a star you suspect has company.</p>
+<a href="#checker" class="btn-primary" style="align-self:flex-start">Back to the checker
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0e13" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+</a>
+</div>
+<img src="/_blob/69f95e37562434ca5b5a7ae57a4409a1" alt="" style="flex:0 0 auto;width:clamp(120px,22vw,240px);height:auto;aspect-ratio:1">
+</section>
+
+<footer style="margin-top:48px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center;justify-content:space-between;color:#8d97a5;font-size:12.5px;line-height:1.5">
+<span class="disp" style="font-size:13px;letter-spacing:.3em;color:#c4ccd6">TASA</span>
+<span style="max-width:560px">Demo data only. Figures are rounded; check the NASA Exoplanet Archive before you cite one.</span>
+</footer>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3000}}'>
+class Component extends DCLogic {
+  get st() {
+    return Object.assign({ query: 'Kepler-186 f', selectedId: 'kepler-186-f', missed: false, missedText: '' }, this.state || {});
+  }
+
+  catalog() {
+    const exo = (id, name, aliases, host, found, distance, size, period, method, methodLabel, massNote) => ({
+      id, name, aliases, kind: 'exo', host, found, distance, size, period, method, methodLabel,
+      line: name + ' orbits ' + host + ' and is a confirmed exoplanet.',
+      checks: [
+        ['pass', 'Orbits ' + host],
+        ['pass', massNote],
+        ['pass', 'Found by ' + methodLabel.toLowerCase()],
+        ['pass', 'Announced in ' + found]
+      ]
+    });
+    const solar = (id, name, found, size, period, massNote, line) => ({
+      id, name, aliases: [], kind: 'solar', host: 'The Sun', found, distance: 'Solar system', size, period, method: 'none', methodLabel: 'None', line,
+      checks: [
+        ['fail', 'Orbits the Sun'],
+        ['pass', massNote],
+        ['fail', 'Not an exoplanet detection'],
+        ['fail', 'Not in the exoplanet archive']
+      ]
+    });
+    const star = (id, name, aliases, found, distance, size, line) => ({
+      id, name, aliases, kind: 'star', host: '—', found, distance, size, period: '—', method: 'none', methodLabel: 'None', line,
+      checks: [
+        ['fail', 'It is the star itself'],
+        ['fail', 'Far above the limit'],
+        ['fail', 'No exoplanet signal'],
+        ['fail', 'Not listed as a planet']
+      ]
+    });
+    return [
+      exo('kepler-186-f', 'Kepler-186 f', [], 'Kepler-186', '2014', '579 ly', '1.17 × Earth radius', '130 days', 'transit', 'Transit', 'Earth-sized, far below the limit'),
+      exo('proxima-b', 'Proxima Centauri b', ['Proxima b', 'Proxima Cen b'], 'Proxima Centauri', '2016', '4.2 ly', '≥ 1.06 × Earth mass', '11.2 days', 'rv', 'Radial velocity', 'About the mass of Earth'),
+      exo('trappist-1-e', 'TRAPPIST-1 e', [], 'TRAPPIST-1', '2017', '41 ly', '0.92 × Earth radius', '6.1 days', 'transit', 'Transit', 'Earth-sized, far below the limit'),
+      exo('51-peg-b', '51 Pegasi b', ['51 Peg b', 'Dimidium'], '51 Pegasi', '1995', '50 ly', '0.61 × Jupiter mass', '4.2 days', 'rv', 'Radial velocity', 'About 0.6 Jupiter masses'),
+      exo('hd-209458-b', 'HD 209458 b', ['Osiris'], 'HD 209458', '1999', '158 ly', '1.4 × Jupiter radius', '3.5 days', 'rv', 'Radial velocity', 'About 0.7 Jupiter masses'),
+      exo('kepler-452-b', 'Kepler-452 b', [], 'Kepler-452', '2015', '1,800 ly', '1.6 × Earth radius', '385 days', 'transit', 'Transit', 'Small enough to sit well under the limit'),
+      exo('toi-700-d', 'TOI-700 d', [], 'TOI-700', '2020', '102 ly', '1.14 × Earth radius', '37.4 days', 'transit', 'Transit', 'Earth-sized, far below the limit'),
+      exo('ogle-390', 'OGLE-2005-BLG-390L b', ['OGLE 390'], 'OGLE-2005-BLG-390L', '2005', '21,500 ly', '≈ 5.5 × Earth mass', '~9 years', 'lensing', 'Microlensing', 'About 5.5 Earth masses'),
+      solar('mars', 'Mars', 'Antiquity', '0.53 × Earth radius', '687 days', 'About a tenth of Earth’s mass', 'Mars is a planet of our own solar system, so it is not an exoplanet.'),
+      solar('jupiter', 'Jupiter', 'Antiquity', '11.2 × Earth radius', '11.9 years', 'About 1 Jupiter mass, under the limit', 'Jupiter orbits the Sun. Exoplanets are worlds around other stars.'),
+      solar('earth', 'Earth', '—', '1 × Earth radius', '365 days', 'One Earth mass', 'Earth orbits the Sun, so it is not an exoplanet. Exoplanets orbit other stars.'),
+      solar('pluto', 'Pluto', '1930', '0.19 × Earth radius', '248 years', 'Far below the limit', 'Pluto is a dwarf planet orbiting the Sun, so it is not an exoplanet.'),
+      star('sirius', 'Sirius', ['Sirius A'], 'Antiquity', '8.6 ly', '1.7 × Sun radius', 'Sirius is a star, so it is not an exoplanet. Stars host exoplanets; they are not one.'),
+      star('proxima-star', 'Proxima Centauri', [], '1915', '4.2 ly', '0.14 × Sun radius', 'Proxima Centauri is a star. Its planet, Proxima Centauri b, is a confirmed exoplanet.')
+    ];
+  }
+
+  norm(s) {
+    return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  find(q) {
+    const n = this.norm(q);
+    if (!n) return null;
+    return this.catalog().find((e) => this.norm(e.name) === n || e.aliases.some((a) => this.norm(a) === n)) || null;
+  }
+
+  path(kind) {
+    const pts = (f) => {
+      let d = '';
+      for (let x = 0; x <= 260; x += 4) d += (x === 0 ? 'M' : 'L') + x + ' ' + f(x).toFixed(1) + ' ';
+      return d;
+    };
+    if (kind === 'transit') return 'M0 34 H62 C69 34 69 90 78 90 H100 C109 90 109 34 116 34 H168 C175 34 175 90 184 90 H206 C215 90 215 34 222 34 H260';
+    if (kind === 'rv') return pts((x) => 60 - 34 * Math.sin((x / 260) * Math.PI * 4));
+    if (kind === 'lensing') return pts((x) => 100 - 70 * Math.exp(-Math.pow((x - 110) / 38, 2)) - 24 * Math.exp(-Math.pow((x - 172) / 9, 2)));
+    return 'M0 60 H260';
+  }
+
+  buildView() {
+    const SAGE = '#b9dba9';
+    const AMBER = '#e8b97a';
+    const MUTED = '#99a3b1';
+    const labels = ['Orbits a star other than the Sun', 'Under the 13 Jupiter-mass limit', 'Signal from a detection method', 'Confirmed in the archive'];
+    const icon = { pass: ['M5 12.5l4.5 4.5L19 7.5', SAGE, 'Passed'], fail: ['M7 7l10 10M17 7L7 17', AMBER, 'Failed'], pending: ['M7 12h10', MUTED, 'Not checked'] };
+    const s = this.st;
+    const e = s.missed ? null : this.catalog().find((x) => x.id === s.selectedId);
+
+    if (!e) {
+      const q = s.missedText;
+      return {
+        name: q || 'No object',
+        distanceLabel: 'Distance unknown',
+        tone: MUTED,
+        title: 'Not in the demo catalog',
+        tag: 'Exoplanet: unknown',
+        line: q ? 'TASA can’t confirm or rule out “' + q + '” here. The demo holds 14 objects; pick one from the catalog below.' : 'Type an object name above, or pick one from the catalog below.',
+        orbitOpacity: 0.25,
+        orbitLabel: 'No object selected',
+        facts: [{ k: 'Host star', v: '—' }, { k: 'Discovered', v: '—' }, { k: 'Distance', v: '—' }, { k: 'Size', v: '—' }, { k: 'Orbit', v: '—' }],
+        methodLabel: 'No data',
+        signalPath: this.path('none'),
+        signalCaption: 'Run a check on a catalog object to see its signal.',
+        signalAlt: 'Flat line, no signal',
+        passCount: 'Not run',
+        checks: labels.map((l) => ({ label: l, detail: 'Not checked', color: icon.pending[1], d: icon.pending[0], word: icon.pending[2] }))
+      };
+    }
+
+    const exo = e.kind === 'exo';
+    const passes = e.checks.filter((c) => c[0] === 'pass').length;
+    const captions = {
+      transit: 'Brightness dips each time the planet crosses its star.',
+      rv: 'The star’s speed wobbles toward and away from us as the planet pulls on it.',
+      lensing: 'A brief spike in a background star’s light reveals the planet’s gravity.',
+      none: 'No exoplanet signal to show for this object.'
+    };
+    return {
+      name: e.name,
+      distanceLabel: e.kind === 'solar' ? 'In our solar system' : 'Distance ' + e.distance,
+      tone: exo ? SAGE : AMBER,
+      title: exo ? 'Confirmed exoplanet' : 'Not an exoplanet',
+      tag: exo ? 'Exoplanet: yes' : 'Exoplanet: no',
+      line: e.line,
+      orbitOpacity: e.kind === 'star' ? 0 : 1,
+      orbitLabel: e.kind === 'star' ? e.name + ', a star' : e.name + ' orbiting ' + (e.kind === 'solar' ? 'the Sun' : e.host),
+      facts: [
+        { k: 'Host star', v: e.host },
+        { k: 'Discovered', v: e.found },
+        { k: 'Distance', v: e.distance },
+        { k: 'Size', v: e.size },
+        { k: 'Orbit', v: e.period }
+      ],
+      methodLabel: e.methodLabel,
+      signalPath: this.path(e.method),
+      signalCaption: captions[e.method],
+      signalAlt: exo ? e.methodLabel + ' signal for ' + e.name : 'Flat line, no exoplanet signal',
+      passCount: passes + ' of 4 passed',
+      checks: e.checks.map((c, i) => ({ label: labels[i], detail: c[1], color: icon[c[0]][1], d: icon[c[0]][0], word: icon[c[0]][2] }))
+    };
+  }
+
+  renderVals() {
+    const s = this.st;
+    const cat = this.catalog();
+    const run = (entry) => () => {
+      this.setState({ selectedId: entry.id, query: entry.name, missed: false, missedText: '' });
+      try {
+        const el = document.getElementById('checker');
+        if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (err) {}
+    };
+    const chipIds = ['kepler-186-f', 'proxima-b', 'mars', 'pluto', 'sirius'];
+    return {
+      query: s.query,
+      onQuery: (ev) => this.setState({ query: ev.target.value }),
+      onSubmit: (ev) => {
+        if (ev && ev.preventDefault) ev.preventDefault();
+        const q = this.st.query;
+        const hit = this.find(q);
+        if (hit) this.setState({ selectedId: hit.id, missed: false, missedText: '' });
+        else this.setState({ selectedId: null, missed: true, missedText: String(q || '').trim() });
+      },
+      chips: chipIds.map((id) => {
+        const entry = cat.find((x) => x.id === id);
+        return { name: entry.name, pick: run(entry) };
+      }),
+      catalogList: cat.map((entry) => ({
+        name: entry.name,
+        status: entry.kind === 'exo' ? 'Confirmed exoplanet' : 'Not an exoplanet',
+        dot: entry.kind === 'exo' ? '#b9dba9' : '#e8b97a',
+        distance: entry.distance,
+        border: !s.missed && s.selectedId === entry.id ? (entry.kind === 'exo' ? 'rgba(185,219,169,.7)' : 'rgba(232,185,122,.7)') : 'rgba(255,255,255,.10)',
+        pick: run(entry)
+      })),
+      view: this.buildView()
+    };
+  }
+}
+</script>
+</body>
+</html>

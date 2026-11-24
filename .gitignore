@@ -1,0 +1,66 @@
+# ---------- Python (backend, notebooks, scripts) ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------- Jupyter ----------
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# ---------- Node / Vite (site) ----------
+node_modules/
+site/dist/
+site/.vite/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
+# ---------- Secrets & local config ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---------- Raw / bulky data ----------
+raw*data.zip
+*.zip
+*.7z
+*.tar.gz
+# Uncomment if the dataset is large or re-downloadable:
+# cumulative.csv
+# data/raw/
+
+# ---------- ML artifacts (uncomment if you don't want to commit them) ----------
+# *.pkl
+# *.joblib
+# *.h5
+# *.pt
+
+# ---------- Logs & temp ----------
+*.log
+*.tmp
+*.bak
+*.swp
+
+# ---------- OS ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- Editors / IDEs ----------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
