@@ -9,7 +9,7 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
 export const PRESETS = [
   {
     name: 'Kepler-186 f',
-    badge: 'Earth Twin (Confirmed)',
+    badge: 'Jumelle de la Terre (confirmée)',
     type: 'confirmed',
     features: {
       koi_period: 129.94,
@@ -25,7 +25,7 @@ export const PRESETS = [
   },
   {
     name: 'Kepler-22 b',
-    badge: 'Super-Earth (Confirmed)',
+    badge: 'Super-Terre (confirmée)',
     type: 'confirmed',
     features: {
       koi_period: 289.86,
@@ -41,7 +41,7 @@ export const PRESETS = [
   },
   {
     name: 'Kepler-412 b',
-    badge: 'Hot Jupiter (Confirmed)',
+    badge: 'Jupiter chaud (confirmé)',
     type: 'confirmed',
     features: {
       koi_period: 1.72,
@@ -56,8 +56,8 @@ export const PRESETS = [
     }
   },
   {
-    name: 'Eclipsing Binary',
-    badge: 'Binary Star (False Positive)',
+    name: 'Binaire à éclipses',
+    badge: 'Étoile binaire (faux positif)',
     type: 'false_positive',
     features: {
       koi_period: 1.25,
@@ -72,8 +72,8 @@ export const PRESETS = [
     }
   },
   {
-    name: 'Instrumental Noise',
-    badge: 'Low SNR Glitch (False Positive)',
+    name: 'Bruit instrumental',
+    badge: 'Artefact à faible SNR (faux positif)',
     type: 'false_positive',
     features: {
       koi_period: 32.5,
@@ -182,7 +182,7 @@ function simulatePrediction(f) {
   return {
     prediction: is_exo ? 'CONFIRMED' : 'FALSE POSITIVE',
     probability: prob,
-    confidence_pct: `${Math.round((is_exo ? prob : 1 - prob) * 100)}% (Offline Fallback)`,
+    confidence_pct: `${Math.round((is_exo ? prob : 1 - prob) * 100)}%`,
     is_exoplanet: is_exo,
     verdict_badge: is_exo ? 'Confirmed Exoplanet' : 'False Positive',
     color: is_exo ? '#b9dba9' : '#e8b97a',

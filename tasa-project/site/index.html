@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TASA: Can we live there? · Exoplanet ML Classifier</title>
-<meta name="description" content="Can we live there? Enter planetary transit and host star observation data to check whether an observation is a confirmed exoplanet or a false positive using machine learning.">
+<title>TASA : Peut-on y vivre ? · Classificateur d’exoplanètes</title>
+<meta name="description" content="Peut-on y vivre ? Saisissez des données de transit planétaire et de l’étoile hôte pour savoir, grâce à l’apprentissage automatique, si une observation est une exoplanète confirmée ou un faux positif.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' fill='none'%3E%3Ccircle cx='18' cy='18' r='6' stroke='%23eef1f5' stroke-width='2'/%3E%3Cellipse cx='18' cy='18' rx='16' ry='6.5' transform='rotate(-28 18 18)' stroke='%23b9dba9' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@300;400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./src/styles.css">
 </head>
 <body>
@@ -17,18 +17,14 @@
 <div class="planet-3d" id="planet-3d" aria-hidden="true"></div>
 
 <header class="site-header">
-  <a href="#top" class="logo" aria-label="TASA home">
+  <a href="#top" class="logo" aria-label="Accueil TASA">
     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><circle cx="18" cy="18" r="6" stroke="#eef1f5" stroke-width="1.6"/><ellipse cx="18" cy="18" rx="16" ry="6.5" transform="rotate(-28 18 18)" stroke="#b9dba9" stroke-width="1.6"/><circle cx="30.5" cy="11.5" r="2.2" fill="#b9dba9"/></svg>
     <span class="disp">TASA</span>
   </a>
-  <div class="badge glass">
-    <span class="dot" id="server-dot"></span>
-    <span id="server-status">ML Engine: Gradient Boosting (FastAPI)</span>
-  </div>
-  <nav aria-label="Main" class="nav glass">
-    <a href="#analyzer" class="navlink" aria-current="true">Signal Analyzer</a>
-    <a href="#results" class="navlink">ML Results</a>
-    <a href="#method" class="navlink">How It Works</a>
+  <nav aria-label="Navigation principale" class="nav glass">
+    <a href="#analyzer" class="navlink" aria-current="true">Analyseur</a>
+    <a href="#results" class="navlink">Résultats</a>
+    <a href="#method" class="navlink">Fonctionnement</a>
   </nav>
 </header>
 
@@ -38,23 +34,15 @@
   <!-- Top Header Row: Title & Subtitle + Live Model Stats -->
   <div class="analyzer-top-row">
     <div class="analyzer-heading">
-      <span class="label" style="color:var(--sage)">Exoplanet Habitability &amp; Classification</span>
-      <h1 id="analyzer-title" class="disp">Can we <span class="sage">live there?</span></h1>
+      <span class="label" style="color:var(--sage)">Habitabilité et classification d’exoplanètes</span>
+      <h1 id="analyzer-title" class="disp">Peut-on <span class="sage">y vivre&nbsp;?</span></h1>
       <p class="analyzer-subtext">
-        Trained on 7,316 NASA Kepler telescope observations with 93.5% accuracy. Enter transit measurements or select a preset below to predict whether an observation is a confirmed exoplanet or a false positive.
+        Entraîné sur 7&nbsp;316 observations du télescope Kepler de la NASA, avec 93,5&nbsp;% de précision. Saisissez des mesures de transit ou choisissez un préréglage pour prédire si une observation est une exoplanète confirmée ou un faux positif.
       </p>
     </div>
 
-    <!-- Metrics Rail: Compact Horizontal/Vertical -->
-    <aside class="rail glass" aria-label="Model metrics">
-      <div><span class="disp">93.5%</span><span class="label">Test Accuracy</span></div>
-      <div><span class="disp">0.976</span><span class="label">AUC-ROC</span></div>
-      <div><span class="disp">7,316</span><span class="label">Kepler KOIs</span></div>
-    </aside>
-  </div>
-
-  <!-- Planet Stage Overlay (For 3D Planet Positioning & Target Badge) -->
-  <div class="stage" aria-hidden="true">
+  <!-- Planet stage: reserves the space the 3D planet is placed into (scroll.js measures it) -->
+  <div class="stage">
     <svg class="orbits" viewBox="0 0 600 560" fill="none" aria-hidden="true">
       <ellipse cx="300" cy="290" rx="292" ry="172" transform="rotate(-24 300 290)" stroke="rgba(255,255,255,.26)"/>
       <ellipse cx="300" cy="290" rx="236" ry="120" transform="rotate(-24 300 290)" stroke="rgba(255,255,255,.12)"/>
@@ -62,197 +50,198 @@
       <circle cx="64" cy="296" r="2.5" fill="#eef1f5"/>
       <circle cx="478" cy="500" r="2" fill="#b9dba9"/>
     </svg>
-    <img class="planet-img" data-img="planet" alt="Rendered exoplanet with an atmospheric glow" width="1000" height="1000">
-    <img class="moon moon-a" data-img="moon" alt="" width="320" height="320">
-    <img class="moon moon-b" data-img="moon" alt="" width="320" height="320">
+    <img class="planet-img" data-img="planet" alt="" aria-hidden="true" width="1000" height="1000">
+    <img class="moon moon-a" data-img="moon" alt="" aria-hidden="true" width="320" height="320">
+    <img class="moon moon-b" data-img="moon" alt="" aria-hidden="true" width="320" height="320">
 
     <div class="target glass" role="status" aria-live="polite">
-      <span class="label label-sm">Prediction Target</span>
-      <span class="target-name" id="target-name">Observation Signal</span>
-      <span class="label label-sm" id="target-prob">Calculating...</span>
-      <span class="pill" id="target-pill"><span class="dot" id="target-dot"></span><span id="target-badge">Confirmed Exoplanet</span></span>
+      <span class="label label-sm">Cible de prédiction</span>
+      <span class="target-name" id="target-name">Signal observé</span>
+      <span class="label label-sm" id="target-prob">Calcul en cours…</span>
+      <span class="pill" id="target-pill"><span class="dot" id="target-dot"></span><span id="target-badge">Exoplanète confirmée</span></span>
     </div>
+  </div>
   </div>
 
   <!-- Horizontal Glass Dashboard Card (Inputs & Presets) -->
   <div class="glass analyzer-panel">
     <!-- Presets bar: horizontal -->
     <div class="analyzer-presets-row">
-      <span class="label">Quick Observation Presets</span>
+      <span class="label">Préréglages d’observation</span>
       <div id="presets-chips" class="chips"></div>
     </div>
 
-    <!-- Parameter grid: horizontal layout across all 6 features -->
+    <!-- Two parallel columns: inputs (left, sticky) and results (right) -->
+    <div class="analyzer-body">
     <form id="planet-form" class="analyzer-form" novalidate>
-      <div class="params-horizontal-grid">
+      <div class="params-grid">
         <!-- Parameter 1: SNR -->
         <div class="param-box">
           <div class="param-header">
-            <label for="f-snr" class="param-label">Signal-to-Noise (SNR) <span class="pill-rank">#1 Rank</span></label>
+            <label for="f-snr" class="param-label">Signal/bruit (SNR) <span class="pill-rank">Rang 1</span></label>
             <input type="number" id="f-snr" class="num-box" min="1" max="250" step="0.5" value="35.8">
           </div>
           <input type="range" id="f-snr-range" class="slider" min="1" max="150" step="0.5" value="35.8">
-          <span class="param-hint">Dip strength vs noise. High (&gt;15) = genuine transit.</span>
+          <span class="param-hint">Force du creux face au bruit. Élevé (&gt;15) = vrai transit.</span>
         </div>
 
         <!-- Parameter 2: Planet Radius -->
         <div class="param-box">
           <div class="param-header">
-            <label for="f-prad" class="param-label">Planet Radius (R⊕) <span class="pill-rank">#2 Rank</span></label>
+            <label for="f-prad" class="param-label">Rayon planétaire (R⊕) <span class="pill-rank">Rang 2</span></label>
             <input type="number" id="f-prad" class="num-box" min="0.2" max="60" step="0.05" value="1.17">
           </div>
           <input type="range" id="f-prad-range" class="slider" min="0.2" max="30" step="0.1" value="1.17">
-          <span class="param-hint">Size in Earth radii. (&gt;25 R⊕ is usually a star).</span>
+          <span class="param-hint">Taille en rayons terrestres (&gt;25 R⊕ : souvent une étoile).</span>
         </div>
 
         <!-- Parameter 3: Orbital Period -->
         <div class="param-box">
           <div class="param-header">
-            <label for="f-period" class="param-label">Orbital Period (Days)</label>
+            <label for="f-period" class="param-label">Période orbitale (jours)</label>
             <input type="number" id="f-period" class="num-box" min="0.2" max="600" step="0.1" value="129.9">
           </div>
           <input type="range" id="f-period-range" class="slider" min="0.2" max="400" step="0.5" value="129.9">
-          <span class="param-hint">Days to complete one orbit around host star.</span>
+          <span class="param-hint">Jours pour faire le tour de l’étoile hôte.</span>
         </div>
 
         <!-- Parameter 4: Transit Duration -->
         <div class="param-box">
           <div class="param-header">
-            <label for="f-duration" class="param-label">Duration (Hours)</label>
+            <label for="f-duration" class="param-label">Durée (heures)</label>
             <input type="number" id="f-duration" class="num-box" min="0.2" max="30" step="0.1" value="4.1">
           </div>
           <input type="range" id="f-duration-range" class="slider" min="0.2" max="16" step="0.1" value="4.1">
-          <span class="param-hint">Hours the object occludes the host star.</span>
+          <span class="param-hint">Heures pendant lesquelles l’objet masque l’étoile.</span>
         </div>
 
         <!-- Parameter 5: Transit Depth -->
         <div class="param-box">
           <div class="param-header">
-            <label for="f-depth" class="param-label">Depth (ppm)</label>
+            <label for="f-depth" class="param-label">Profondeur (ppm)</label>
             <input type="number" id="f-depth" class="num-box" min="10" max="120000" step="10" value="500">
           </div>
           <input type="range" id="f-depth-range" class="slider" min="10" max="25000" step="50" value="500">
-          <span class="param-hint">Parts-per-million brightness reduction.</span>
+          <span class="param-hint">Baisse de luminosité en parties par million.</span>
         </div>
 
         <!-- Parameter 6: Host Star Temp -->
         <div class="param-box">
           <div class="param-header">
-            <label for="f-steff" class="param-label">Star Temp (Kelvin)</label>
+            <label for="f-steff" class="param-label">Temp. de l’étoile (K)</label>
             <input type="number" id="f-steff" class="num-box" min="2000" max="12000" step="50" value="3788">
           </div>
           <input type="range" id="f-steff-range" class="slider" min="2500" max="9000" step="50" value="3788">
-          <span class="param-hint">Effective temperature of the host star.</span>
+          <span class="param-hint">Température effective de l’étoile hôte.</span>
         </div>
       </div>
 
       <!-- Action row: horizontal -->
       <div class="analyzer-actions">
         <button type="submit" id="check-btn" class="btn-primary analyzer-btn">
-          <span>Run ML Classification</span>
+          <span>Lancer la classification</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0e13" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
-        <span class="fine">Evaluated in real time by the Scikit-Learn Gradient Boosting model via FastAPI.</span>
       </div>
     </form>
-  </div>
-</section>
 
-<!-- Live Results Section: Horizontal 4-Card Grid -->
-<section id="results" class="results" aria-label="ML Result details">
+    <!-- Results: 4 cards stacked, parallel to the inputs -->
+    <div id="results" class="results" role="region" aria-label="Résultats de la classification">
   <!-- Card 1: Model Verdict & Probability -->
-  <article class="glass card">
+  <article class="card">
     <header class="card-head">
       <h2 class="label">Verdict</h2>
-      <span id="verdict-tag" class="label">Confirmed Exoplanet</span>
+      <span id="verdict-tag" class="label">Exoplanète confirmée</span>
     </header>
     <div class="gauge-box">
       <div class="gauge-meta">
-        <span class="label label-sm">Exoplanet Probability</span>
+        <span class="label label-sm">Probabilité d’exoplanète</span>
         <span id="prob-value" class="prob-val">99.2%</span>
       </div>
       <div class="progress-track">
         <div id="prob-bar" class="progress-bar" style="width: 99.2%;"></div>
       </div>
       <div class="gauge-scale">
-        <span>0% False Positive</span>
-        <span>50% Threshold</span>
-        <span>100% Exoplanet</span>
+        <span>0&nbsp;% faux positif</span>
+        <span>50&nbsp;% seuil</span>
+        <span>100&nbsp;% exoplanète</span>
       </div>
     </div>
     <div style="margin-top:auto">
-      <div id="verdict-title" class="verdict-title">Confirmed Exoplanet</div>
-      <p id="verdict-desc">The model classifies this transit observation as a confirmed exoplanet with high confidence.</p>
+      <div id="verdict-title" class="verdict-title">Exoplanète confirmée</div>
+      <p id="verdict-desc">Le modèle classe cette observation de transit comme une exoplanète confirmée, avec une confiance élevée.</p>
     </div>
   </article>
 
   <!-- Card 2: Transit Light Curve -->
-  <article class="glass card">
+  <article class="card">
     <header class="card-head">
-      <h2 class="label">Transit Light Curve</h2>
-      <span id="signal-tag" class="label">Normalized Flux</span>
+      <h2 class="label">Courbe de lumière</h2>
+      <span id="signal-tag" class="label">Flux normalisé</span>
     </header>
-    <svg viewBox="0 0 260 120" role="img" aria-label="Simulated transit light curve" style="width:100%;max-height:140px;margin-top:6px">
+    <svg viewBox="0 0 260 120" role="img" aria-label="Courbe de lumière simulée du transit" style="width:100%;max-height:140px;margin-top:6px">
       <path d="M0 25H260M0 60H260M0 95H260" stroke="rgba(255,255,255,.08)" stroke-dasharray="3 5" fill="none"/>
       <path id="signal-path" d="M0 40 H70 C80 40 85 90 95 90 H165 C175 90 180 40 190 40 H260" fill="none" stroke="#b9dba9" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
     </svg>
     <div class="signal-axes">
-      <span class="label label-sm">Time (Hours)</span>
-      <span class="label label-sm">Flux (Depth: <span id="depth-disp">500</span> ppm)</span>
+      <span class="label label-sm">Temps (heures)</span>
+      <span class="label label-sm">Profondeur&nbsp;: <span id="depth-disp">500</span> ppm</span>
     </div>
-    <p id="signal-caption" style="margin:auto 0 0">Starlight dims predictably as the object transits the stellar disc.</p>
+    <p id="signal-caption" style="margin:auto 0 0">La lumière de l’étoile baisse de façon régulière quand l’objet passe devant son disque.</p>
   </article>
 
   <!-- Card 3: Astronomical Profile -->
-  <article class="glass card">
+  <article class="card">
     <header class="card-head">
-      <h2 class="label">Astronomical Profile</h2>
-      <span class="label">Derived Categories</span>
+      <h2 class="label">Profil astronomique</h2>
+      <span class="label">Catégories</span>
     </header>
     <dl class="facts" id="profile-facts">
-      <div><dt>Planet Type</dt><dd id="cat-planet">Earth-like</dd></div>
-      <div><dt>Orbit Class</dt><dd id="cat-orbit">Long (129.9 d)</dd></div>
-      <div><dt>Star Type</dt><dd id="cat-star">Cool (3,788 K)</dd></div>
-      <div><dt>Luminosity</dt><dd id="cat-lum">Medium (14.0 mag)</dd></div>
-      <div><dt>Transit SNR</dt><dd id="disp-snr">35.8</dd></div>
+      <div><dt>Type de planète</dt><dd id="cat-planet">Type Terre</dd></div>
+      <div><dt>Orbite</dt><dd id="cat-orbit">Longue (129,9 j)</dd></div>
+      <div><dt>Type d’étoile</dt><dd id="cat-star">Froide (3 788 K)</dd></div>
+      <div><dt>Luminosité</dt><dd id="cat-lum">Moyenne (14,0 mag)</dd></div>
+      <div><dt>SNR du transit</dt><dd id="disp-snr">35.8</dd></div>
     </dl>
   </article>
 
   <!-- Card 4: AI Decision Insights -->
-  <article class="glass card">
+  <article class="card">
     <header class="card-head">
-      <h2 class="label">Model Decision Insights</h2>
-      <span class="label">Astrophysical Evidence</span>
+      <h2 class="label">Analyse du modèle</h2>
+      <span class="label">Indices</span>
     </header>
     <ul class="insights-list" id="insights-list">
-      <li>Strong signal-to-noise ratio (35.8 SNR) stands out clearly above stellar noise.</li>
-      <li>Terrestrial size (1.17 Earth radii) is consistent with rocky worlds.</li>
-      <li>Transit depth (500 ppm) matches planetary occlusion.</li>
+      <li>Rapport signal/bruit élevé (SNR 35,8), bien au-dessus du seuil de détection.</li>
+      <li>Taille terrestre (1,17 rayon terrestre), compatible avec une planète rocheuse.</li>
+      <li>Une profondeur de transit de 500 ppm correspond au passage d’une planète.</li>
     </ul>
   </article>
+    </div>
+    </div>
+  </div>
 </section>
 
 <!-- Educational / How it works section -->
 <section id="method" class="section" aria-labelledby="method-title">
   <div class="section-head">
-    <h2 id="method-title" class="disp">How Machine Learning Detects Exoplanets</h2>
-    <p>Trained on 7,316 Kepler Objects of Interest (KOIs), our model learned to distinguish genuine exoplanets from astrophysical impostors and noise.</p>
+    <h2 id="method-title" class="disp">Comment l’IA détecte les exoplanètes</h2>
   </div>
   <div class="criteria">
     <article class="glass criterion">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="5" fill="#ffe6b8"/><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-20 20 20)" stroke="#b9dba9" stroke-width="1.5"/><circle cx="34" cy="14" r="2.6" fill="#b9dba9"/></svg>
-      <h3>Transit Photometry</h3>
-      <p>When a planet crosses in front of its star, it blocks a tiny fraction of starlight. The duration and depth reveal the planet's radius and orbital velocity.</p>
+      <h3>Photométrie des transits</h3>
+      <p>Quand une planète passe devant son étoile, elle bloque une infime partie de sa lumière. La durée et la profondeur du transit révèlent le rayon de la planète et sa vitesse orbitale.</p>
     </article>
     <article class="glass criterion">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M6 32h28" stroke="#99a3b1" stroke-width="1.5" stroke-linecap="round"/><path d="M10 32V22M20 32V14M30 32V6" stroke="#b9dba9" stroke-width="3" stroke-linecap="round"/></svg>
-      <h3>Eclipsing Binary Rejection</h3>
-      <p>Two orbiting stars produce massive dips (&gt;20,000 ppm) and calculated radii exceeding 25–40 Earth radii. The model immediately flags these as false positives.</p>
+      <h3>Rejet des binaires à éclipses</h3>
+      <p>Deux étoiles en orbite l’une autour de l’autre produisent des creux énormes (&gt;20&nbsp;000 ppm) et des rayons calculés de 25 à 40 rayons terrestres. Le modèle les classe aussitôt en faux positifs.</p>
     </article>
     <article class="glass criterion">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M4 20h8l3-10 5 22 4-16 3 4h9" stroke="#b9dba9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <h3>Signal-to-Noise Filtering</h3>
-      <p>Permutation importance proved that Model SNR is the #1 decision driver. Weak signals (&lt;10 SNR) are often detector jitter or stellar flares, not planets.</p>
+      <h3>Filtrage signal/bruit</h3>
+      <p>L’importance par permutation montre que le SNR est le critère de décision n°&nbsp;1. Les signaux faibles (SNR &lt;10) sont souvent des fluctuations du détecteur ou des éruptions stellaires, pas des planètes.</p>
     </article>
   </div>
 </section>
@@ -260,9 +249,9 @@
 <!-- Call to action -->
 <section class="glass cta" aria-labelledby="cta-title">
   <div>
-    <h2 id="cta-title" class="disp">Test another observation. <span class="sage">Get instant ML results.</span></h2>
-    <p>Adjust transit duration, depth, or radius to test how subtle astrophysical variations influence exoplanet confirmation.</p>
-    <a href="#analyzer" class="btn-primary" data-focus-input>Back to Top
+    <h2 id="cta-title" class="disp">Testez une autre observation. <span class="sage">Résultat immédiat.</span></h2>
+    <p>Modifiez la durée, la profondeur ou le rayon du transit pour voir comment de petites variations astrophysiques changent le verdict.</p>
+    <a href="#analyzer" class="btn-primary" data-focus-input>Retour en haut
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0e13" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
     </a>
   </div>
@@ -272,7 +261,7 @@
 
 <footer class="site-footer">
   <span class="disp">TASA</span>
-  <p>Trained on Kepler Observations (`cumulative.csv`). Machine Learning Pipeline: Scikit-learn Gradient Boosting Classifier + FastAPI Backend.</p>
+  <p>Entraîné sur des observations du télescope Kepler de la NASA.</p>
 </footer>
 
 </div>

@@ -22,9 +22,11 @@ Semantic colors (sage pass, amber fail, gray pending) always come with an icon a
 Atmospheric background: two soft radial glows (teal top right, green left) plus the tiled starfield image.
 
 ## Typography
-- Display: **Lexend Zetta**, weight 300, uppercase. Used for the headline, section titles, the logo wordmark and stat numbers. Wide and light, like the reference.
-- Body and UI: **Manrope**, weights 400 to 700.
-- Both load from Google Fonts. Fallbacks: system sans.
+- Display: **Instrument Serif**, regular, normal case. Used for the headline and section titles; the accented (sage) part of a title is italic.
+- Body and UI: **IBM Plex Sans**, weights 400 to 700.
+- Labels, numbers and the logo wordmark: **IBM Plex Mono**, weights 400 and 500. Small labels are uppercase with light tracking.
+- All load from Google Fonts. Fallbacks: Georgia (display), system sans (body), system monospace (mono).
+- Changed 2026-11-25 at the owner's request (replaces Lexend Zetta + Manrope).
 
 | Role | Size | Notes |
 |---|---|---|

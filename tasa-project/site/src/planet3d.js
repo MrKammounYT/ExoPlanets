@@ -5,6 +5,48 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import glbUrl from '../../assets/3d/tasa-scene.glb?url';
 import params from '../../assets/3d/scene-params.json';
+// Higher-quality maps from tools/make_planet_textures.py. They replace the maps baked into the
+// GLB at load time (the GLB itself is untouched); if one fails to load, the GLB's map stays.
+import planetColorUrl from '../../assets/3d/textures/planet-color.webp?url';
+import planetNormalUrl from '../../assets/3d/textures/planet-normal.webp?url';
+import planetRoughUrl from '../../assets/3d/textures/planet-roughness.webp?url';
+import cloudsUrl from '../../assets/3d/textures/planet-clouds.webp?url';
+import moonColorUrl from '../../assets/3d/textures/moon-color.webp?url';
+import moonNormalUrl from '../../assets/3d/textures/moon-normal.webp?url';
+
+const TEXTURES = {
+  planetColor: [planetColorUrl, true],
+  planetNormal: [planetNormalUrl, false],
+  planetRough: [planetRoughUrl, false],
+  clouds: [cloudsUrl, true],
+  moonColor: [moonColorUrl, true],
+  moonNormal: [moonNormalUrl, false]
+};
+
+async function loadTextures(maxAniso) {
+  const loader = new THREE.TextureLoader();
+  const entries = await Promise.all(Object.entries(TEXTURES).map(async ([key, [url, srgb]]) => {
+    try {
+      const t = await loader.loadAsync(url);
+      t.flipY = false; // glTF UV convention, same as the GLB's own textures
+      t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+      t.anisotropy = maxAniso;
+      t.wrapS = THREE.RepeatWrapping; // longitude wraps around the sphere
+      return [key, t];
+    } catch (err) {
+      console.warn(`Planet texture ${key} failed to load; keeping the GLB map.`, err);
+      return [key, null];
+    }
+  }));
+  return Object.fromEntries(entries);
+}
+
+function swapMap(material, slot, texture) {
+  if (!texture) return;
+  if (material[slot]) material[slot].dispose();
+  material[slot] = texture;
+  material.needsUpdate = true;
+}
 
 const ATMO_COLOR = new THREE.Color('#6fa3f5');
 const SPIN = (Math.PI * 2) / 90; // one revolution per 90 s
@@ -104,7 +146,8 @@ export async function mountPlanet(host) {
   scene.add(sun);
   scene.add(new THREE.AmbientLight(0x8aa4c8, 0.06));
 
-  const gltf = await new GLTFLoader().loadAsync(glbUrl);
+  const maxAniso = renderer.capabilities.getMaxAnisotropy();
+  const [gltf, tex] = await Promise.all([new GLTFLoader().loadAsync(glbUrl), loadTextures(maxAniso)]);
   const root = gltf.scene;
 
   const planet = root.getObjectByName('TASA_Planet');
@@ -113,18 +156,36 @@ export async function mountPlanet(host) {
   const moonSmall = root.getObjectByName('TASA_Moon_Small');
   if (!planet || !clouds) throw new Error('tasa-scene.glb is missing TASA_Planet or TASA_Clouds');
 
-  const maxAniso = renderer.capabilities.getMaxAnisotropy();
   planet.traverse((o) => {
     if (!o.isMesh) return;
-    o.material.side = THREE.FrontSide;
-    for (const key of ['map', 'normalMap', 'roughnessMap']) if (o.material[key]) o.material[key].anisotropy = maxAniso;
+    const m = o.material;
+    m.side = THREE.FrontSide;
+    swapMap(m, 'map', tex.planetColor);
+    swapMap(m, 'normalMap', tex.planetNormal);
+    // glTF packs roughness (G) and metalness (B) in one texture; three reads both slots from it.
+    if (tex.planetRough) { m.roughnessMap = tex.planetRough; m.metalnessMap = tex.planetRough; m.needsUpdate = true; }
+    m.normalScale.set(1, m.normalScale.y < 0 ? -1 : 1); // strength is baked into the map
+    for (const key of ['map', 'normalMap', 'roughnessMap']) if (m[key]) m[key].anisotropy = maxAniso;
   });
   clouds.traverse((o) => {
     if (!o.isMesh) return;
     o.material.side = THREE.FrontSide;
     o.material.depthWrite = false;
+    swapMap(o.material, 'map', tex.clouds);
     o.renderOrder = 1;
   });
+  // Moons: the GLB gives them a flat grey; give them a cratered surface. Brightness is in the
+  // texture, so the GLB's grey tint is replaced by a light multiplier.
+  for (const [moon, shade] of [[moonBig, 1], [moonSmall, 0.85]]) {
+    moon?.traverse((o) => {
+      if (!o.isMesh || !tex.moonColor) return;
+      const m = o.material;
+      m.map = tex.moonColor;
+      if (tex.moonNormal) { m.normalMap = tex.moonNormal; m.normalScale.set(1, 1); }
+      m.color.setScalar(shade);
+      m.needsUpdate = true;
+    });
+  }
 
   // Planet group: everything that moves together with scroll.
   const world = new THREE.Group();

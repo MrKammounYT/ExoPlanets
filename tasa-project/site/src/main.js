@@ -1,4 +1,4 @@
-import { PRESETS, predictExoplanet, checkApiHealth } from './ml-client.js';
+import { PRESETS, predictExoplanet } from './ml-client.js';
 import planetUrl from '../../assets/tasa-planet.png';
 import moonUrl from '../../assets/tasa-moon.png';
 
@@ -13,6 +13,47 @@ const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
 const SAGE = '#b9dba9';
 const AMBER = '#e8b97a';
+
+// ---- French display text ----------------------------------------------------
+// The backend (and the offline estimate) return English labels and sentences.
+// All visible text is built here from the numbers, so the page stays French either way.
+const num = (v, digits = 0) =>
+  Number(v).toLocaleString('fr-FR', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+const pct = (p) => `${num(p * 100, 1)} %`;
+
+const FR = {
+  type_planete: { earth_like: 'Type Terre', super_earth: 'Super-Terre', neptune_like: 'Type Neptune', jupiter_like: 'Type Jupiter' },
+  type_orbite: { short: 'Courte', medium: 'Moyenne', long: 'Longue' },
+  type_etoile: { cool: 'Froide', sun_like: 'Type Soleil', hot: 'Chaude' },
+  luminosite: { bright: 'Brillante', medium: 'Moyenne', faint: 'Faible' }
+};
+const frLabel = (group, key) => FR[group][key] ?? String(key ?? '—').replace(/_/g, ' ');
+const verdictLabel = (isExo) => (isExo ? 'Exoplanète confirmée' : 'Faux positif');
+
+// Same thresholds as generate_insights() in backend/main.py.
+function insightsFr(f) {
+  const out = [];
+  const snr = num(f.koi_model_snr, 1);
+  if (f.koi_model_snr >= 20) out.push(`Rapport signal/bruit élevé (SNR ${snr}), bien au-dessus du seuil de détection.`);
+  else if (f.koi_model_snr >= 10) out.push(`Rapport signal/bruit modéré (SNR ${snr}) : le transit est net.`);
+  else out.push(`Rapport signal/bruit faible (SNR ${snr}) : signal très sensible au bruit de fond.`);
+
+  const r = num(f.koi_prad, 2);
+  if (f.koi_prad <= 2) out.push(`Taille terrestre (${r} R⊕), compatible avec une planète rocheuse ou une super-Terre.`);
+  else if (f.koi_prad <= 6) out.push(`Taille de mini-Neptune ou de Neptune (${r} R⊕), fréquente chez les exoplanètes.`);
+  else if (f.koi_prad <= 15) out.push(`Rayon de géante gazeuse (${r} R⊕), comparable à Jupiter.`);
+  else out.push(`Rayon inhabituellement grand (${num(f.koi_prad, 1)} R⊕), typique d’une binaire à éclipses.`);
+
+  const d = num(f.koi_depth);
+  if (f.koi_depth > 10000) out.push(`Transit profond (${d} ppm) : un creux aussi grand indique souvent une éclipse stellaire ou une planète géante.`);
+  else out.push(`Une profondeur de transit de ${d} ppm correspond au passage d’une planète.`);
+
+  // French uses the singular below 2 (« 1,25 jour »).
+  const days = `${num(f.koi_period, 2)} ${f.koi_period < 2 ? 'jour' : 'jours'}`;
+  if (f.koi_period < 1) out.push(`Période orbitale ultra-courte (${days}), orbite très serrée.`);
+  else out.push(`Période orbitale de ${days}.`);
+  return out;
+}
 
 // Two-way synchronization between number inputs and sliders
 const inputPairs = [
@@ -40,7 +81,7 @@ function setupInputSync() {
   });
 }
 
-function applyFeatures(f, name = 'Observation Signal') {
+function applyFeatures(f, name = 'Signal observé') {
   if (f.koi_model_snr !== undefined) {
     $('#f-snr').value = f.koi_model_snr;
     $('#f-snr-range').value = f.koi_model_snr;
@@ -115,74 +156,129 @@ function drawTransitCurve(duration, depth, isExo) {
 
   signalPath.setAttribute('d', d);
   signalPath.setAttribute('stroke', isExo ? SAGE : AMBER);
-  $('#depth-disp').textContent = Math.round(depth).toLocaleString();
+  $('#depth-disp').textContent = num(depth);
 }
 
-async function runClassification() {
-  const checkBtn = $('#check-btn');
-  if (checkBtn) {
-    checkBtn.disabled = true;
-    checkBtn.style.opacity = '0.7';
-  }
+// ---- Run feedback: loading state, scroll to results, staggered reveal ----------
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const MIN_LOADING_MS = 650; // the offline estimate is instant; keep the loading state readable
+let runId = 0;
+let shownProb = 0; // probability currently displayed, the count-up starts from it
 
+function setLoading(on) {
+  const btn = $('#check-btn');
+  const label = $('#check-btn span');
+  btn.classList.toggle('is-loading', on);
+  btn.disabled = on;
+  btn.setAttribute('aria-busy', String(on));
+  label.textContent = on ? 'Analyse en cours…' : 'Lancer la classification';
+  $('#results').classList.toggle('is-computing', on);
+  $('#results').setAttribute('aria-busy', String(on));
+}
+
+// Bring the verdict card into view when it is off screen (up on desktop, down on phones).
+function scrollToResults() {
+  const card = $('#results .card');
+  const r = card.getBoundingClientRect();
+  const visible = r.top >= 0 && r.top <= window.innerHeight * 0.55;
+  if (!visible) $('#results').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+}
+
+function revealResults() {
+  const results = $('#results');
+  results.classList.remove('is-revealed');
+  void results.offsetWidth; // restart the CSS animation
+  results.classList.add('is-revealed');
+}
+
+// Probability counts from the value on screen to the new one.
+function countProbability(to) {
+  const el = $('#prob-value');
+  const from = shownProb;
+  shownProb = to;
+  if (reducedMotion()) { el.textContent = pct(to); return; }
+  const start = performance.now();
+  const dur = 900;
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = pct(from + (to - from) * eased);
+    if (t < 1 && shownProb === to) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+async function runClassification({ animate = false } = {}) {
+  const id = ++runId;
   const features = getFormFeatures();
-  const res = await predictExoplanet(features);
-
-  if (checkBtn) {
-    checkBtn.disabled = false;
-    checkBtn.style.opacity = '1';
+  let res;
+  if (animate) {
+    setLoading(true);
+    scrollToResults();
+    [res] = await Promise.all([predictExoplanet(features), wait(reducedMotion() ? 0 : MIN_LOADING_MS)]);
+    if (id !== runId) return; // a newer run started; let it finish
+    setLoading(false);
+  } else {
+    res = await predictExoplanet(features);
+    if (id !== runId) return;
   }
 
   const tone = res.color;
-  const probPct = (res.probability * 100).toFixed(1);
+  const isExo = res.is_exoplanet;
+  const verdict = verdictLabel(isExo);
+  const confidence = pct(isExo ? res.probability : 1 - res.probability);
 
   // 1. Update Target Pill on 3D Planet
-  $('#target-prob').textContent = `${probPct}% Exoplanet Probability`;
-  $('#target-badge').textContent = res.verdict_badge;
+  $('#target-prob').textContent = `Probabilité d’exoplanète : ${pct(res.probability)}`;
+  $('#target-badge').textContent = verdict;
   $('#target-badge').style.color = tone;
   $('#target-dot').style.backgroundColor = tone;
   $('#target-pill').style.color = tone;
 
   // 2. Update Verdict Card
-  $('#verdict-tag').textContent = res.verdict_badge;
+  $('#verdict-tag').textContent = verdict;
   $('#verdict-tag').style.color = tone;
-  $('#prob-value').textContent = `${probPct}%`;
+  if (animate) countProbability(res.probability);
+  else { shownProb = res.probability; $('#prob-value').textContent = pct(res.probability); }
   $('#prob-value').style.color = tone;
-  $('#prob-bar').style.width = `${probPct}%`;
+  $('#results').style.setProperty('--tone', tone);
+  $('#prob-bar').style.width = `${(res.probability * 100).toFixed(1)}%`;
   $('#prob-bar').style.backgroundColor = tone;
 
-  $('#verdict-title').textContent = res.verdict_badge;
+  $('#verdict-title').textContent = verdict;
   $('#verdict-title').style.color = tone;
-  $('#verdict-desc').textContent = res.is_exoplanet
-    ? `The Gradient Boosting model confirms this signal as a genuine exoplanet with ${res.confidence_pct} model confidence.`
-    : `The model flags this signal as a FALSE POSITIVE (${res.confidence_pct} confidence), consistent with an eclipsing binary or noise artifact.`;
+  $('#verdict-desc').textContent = isExo
+    ? `Le modèle confirme ce signal comme une véritable exoplanète, avec une confiance de ${confidence}.`
+    : `Le modèle classe ce signal comme un FAUX POSITIF (confiance de ${confidence}) : binaire à éclipses ou artefact de bruit.`;
 
   // 3. Draw light curve
-  drawTransitCurve(features.koi_duration, features.koi_depth, res.is_exoplanet);
-  $('#signal-caption').textContent = res.is_exoplanet
-    ? `Periodic brightness dip of ${Math.round(features.koi_depth).toLocaleString()} ppm consistent with planetary transit.`
-    : `Anomalous transit profile: depth of ${Math.round(features.koi_depth).toLocaleString()} ppm and SNR of ${features.koi_model_snr} indicates stellar binary or false signal.`;
+  drawTransitCurve(features.koi_duration, features.koi_depth, isExo);
+  $('#signal-caption').textContent = isExo
+    ? `Baisse de luminosité périodique de ${num(features.koi_depth)} ppm, compatible avec le transit d’une planète.`
+    : `Profil de transit anormal : une profondeur de ${num(features.koi_depth)} ppm et un SNR de ${num(features.koi_model_snr, 1)} indiquent une binaire stellaire ou un faux signal.`;
 
   // 4. Update Astronomical Profile
   if (res.categories) {
-    $('#cat-planet').textContent = `${res.categories.type_planete.replace('_', ' ')} (${features.koi_prad.toFixed(2)} R⊕)`;
-    $('#cat-orbit').textContent = `${res.categories.type_orbite} (${features.koi_period.toFixed(1)} d)`;
-    $('#cat-star').textContent = `${res.categories.type_etoile} (${Math.round(features.koi_steff).toLocaleString()} K)`;
-    $('#cat-lum').textContent = `${res.categories.luminosite} (14.0 mag)`;
-    $('#disp-snr').textContent = features.koi_model_snr.toFixed(1);
+    const c = res.categories;
+    $('#cat-planet').textContent = `${frLabel('type_planete', c.type_planete)} (${num(features.koi_prad, 2)} R⊕)`;
+    $('#cat-orbit').textContent = `${frLabel('type_orbite', c.type_orbite)} (${num(features.koi_period, 1)} j)`;
+    $('#cat-star').textContent = `${frLabel('type_etoile', c.type_etoile)} (${num(features.koi_steff)} K)`;
+    $('#cat-lum').textContent = `${frLabel('luminosite', c.luminosite)} (${num(features.koi_kepmag, 1)} mag)`;
+    $('#disp-snr').textContent = num(features.koi_model_snr, 1);
   }
 
   // 5. Update Insights
-  if (res.key_insights) {
-    $('#insights-list').replaceChildren(...res.key_insights.map((msg) => {
-      const li = document.createElement('li');
-      li.textContent = msg;
-      return li;
-    }));
-  }
+  $('#insights-list').replaceChildren(...insightsFr(features).map((msg) => {
+    const li = document.createElement('li');
+    li.textContent = msg;
+    return li;
+  }));
 
   // 6. Tint 3D Planet
   tintPlanet(tone);
+
+  if (animate) revealResults();
 }
 
 function initPresets() {
@@ -197,23 +293,10 @@ function initPresets() {
     btn.title = p.badge;
     btn.addEventListener('click', () => {
       applyFeatures(p.features, p.name);
-      runClassification();
+      runClassification({ animate: true });
     });
     return btn;
   }));
-}
-
-async function refreshHealth() {
-  const health = await checkApiHealth();
-  const dot = $('#server-dot');
-  const status = $('#server-status');
-  if (health.status === 'healthy') {
-    if (dot) dot.style.backgroundColor = SAGE;
-    if (status) status.textContent = 'ML Engine: FastAPI Connected (Port 8000)';
-  } else {
-    if (dot) dot.style.backgroundColor = AMBER;
-    if (status) status.textContent = 'ML Engine: Offline Fallback Ready';
-  }
 }
 
 // 3D Planet & GSAP Scroll initialization
@@ -248,8 +331,8 @@ initPresets();
 
 $('#planet-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  $('#target-name').textContent = 'Custom Observation';
-  runClassification();
+  $('#target-name').textContent = 'Observation personnalisée';
+  runClassification({ animate: true });
 });
 
 for (const btn of $$('[data-focus-input]')) {
@@ -261,7 +344,5 @@ for (const btn of $$('[data-focus-input]')) {
 // Initial classification run with default preset
 applyFeatures(PRESETS[0].features, PRESETS[0].name);
 runClassification();
-refreshHealth();
-setInterval(refreshHealth, 15000);
 
 startPlanet();
